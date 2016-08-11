@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -26,6 +27,8 @@ class DataTransferThread extends Thread {
     private Handler handler;
 
     File fileMedia;
+    String fileMimeType;
+    String fileTitle;
     int dataLength;
     byte[] dataDigest;
 
@@ -44,24 +47,28 @@ class DataTransferThread extends Thread {
 
     }
 
-    public void setData (File fileMedia, int dataLength, byte[] dataDigest) {
+    public void setData (File fileMedia, int dataLength, byte[] dataDigest, String fileTitle, String mimeType) {
 
         this.fileMedia = fileMedia;
+        this.fileTitle = fileTitle;
         this.dataLength = dataLength;
         this.dataDigest = dataDigest;
+        this.fileMimeType = mimeType;
     }
 
     private void receiveData ()
     {
         try {
 
-            InputStream inputStream = socket.getInputStream();
+            DataInputStream inputStream = new DataInputStream(socket.getInputStream());
             OutputStream outputStream = socket.getOutputStream();
             boolean waitingForHeader = true;
 
             File dirDownloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-            File fileOut = new File(dirDownloads,new Date().getTime()+".jpg");
-            OutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(fileOut));
+            File fileOut = null;
+            String fileName = null;
+            String fileType = null;
+            OutputStream dataOutputStream = null;
 
             byte[] headerBytes = new byte[22];
             byte[] digest = new byte[16];
@@ -88,6 +95,15 @@ class DataTransferThread extends Thread {
                         progressData.remainingSize = progressData.totalSize;
                         Log.v(TAG, "Data size: " + progressData.totalSize);
                         digest = Arrays.copyOfRange(headerBytes, 6, 22);
+
+                        fileName = inputStream.readUTF();
+                        fileType = inputStream.readUTF();
+
+                        String fileExt = MimeTypeMap.getSingleton().getExtensionFromMimeType(fileType);
+
+                        fileOut = new File(dirDownloads,new Date().getTime()+"."+fileExt);
+                        dataOutputStream = new DataOutputStream(new FileOutputStream(fileOut));
+
                         waitingForHeader = false;
                         sendProgress(progressData);
                     } else {
@@ -128,6 +144,8 @@ class DataTransferThread extends Thread {
                 Message message = new Message();
                 message.obj = fileOut;
                 message.what = MessageType.DATA_RECEIVED;
+                message.getData().putString("name",fileName);
+                message.getData().putString("type",fileType);
                 handler.sendMessage(message);
 
                 // Send the digest back to the client as a confirmation
@@ -184,6 +202,9 @@ class DataTransferThread extends Thread {
             ProgressData progressData = new ProgressData();
             progressData.totalSize = dataLength;
             progressData.remainingSize = progressData.totalSize;
+
+            outputStream.writeUTF(fileTitle);
+            outputStream.writeUTF(fileMimeType);
 
             Log.v(TAG, "Sending file of " + dataLength + " length");
 

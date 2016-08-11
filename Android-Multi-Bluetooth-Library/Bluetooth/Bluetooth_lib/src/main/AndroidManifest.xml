@@ -2,7 +2,7 @@
     package="com.ramimartin.multibluetooth">
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="10"
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />

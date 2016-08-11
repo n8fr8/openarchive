@@ -23,6 +23,8 @@ public class ServerThread extends Thread {
     private ServerListener serverListener;
 
     private File fileMedia;
+    private String fileTitle;
+    private String fileType;
     private byte[] digest;
     private int length;
 
@@ -47,9 +49,11 @@ public class ServerThread extends Thread {
 
     }
 
-    public void setShareMedia (File fileMedia, int length, byte[] digest)
+    public void setShareMedia (File fileMedia, int length, byte[] digest, String fileTitle, String fileType)
     {
         this.fileMedia = fileMedia;
+        this.fileTitle = fileTitle;
+        this.fileType = fileType;
         this.length = length;
         this.digest = digest;
     }
@@ -74,7 +78,7 @@ public class ServerThread extends Thread {
                 try {
                     Log.v(TAG, "Got connection from client.  Spawning new data transfer thread.");
                     DataTransferThread dataTransferThread = new DataTransferThread(socket, handler);
-                    dataTransferThread.setData(fileMedia,length, digest);
+                    dataTransferThread.setData(fileMedia,length, digest, fileTitle, fileType);
                     dataTransferThread.start();
 
                 } catch (Exception e) {

@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -105,10 +106,11 @@ public class NearbyActivity extends BluetoothFragmentActivity {
                     if (message.obj instanceof File) {
 
                         File fileMedia = (File) message.obj;
-                        String mimeType = "image/jpeg";
+                        String mediaType = message.getData().getString("type");
+                        String mediaName = message.getData().getString("name");
 
                         log ("");
-                        addMedia(fileMedia, mimeType);
+                        addMedia(fileMedia, mediaName, mediaType);
 
                         return;
                     }
@@ -142,15 +144,8 @@ public class NearbyActivity extends BluetoothFragmentActivity {
 
                     int perComplete = -1;
 
-                    if (mIsServer) {
-                        perComplete = 100 - (int) ((((float) remaining) / ((float) pd.totalSize)) * 100f);
-                        log("progress: " + (pd.remainingSize) + "/" + pd.totalSize);
-
-                    }
-                    else {
-                        perComplete = (int) ((((float) remaining) / ((float) pd.totalSize)) * 100f);
-                        log("progress: " + (pd.totalSize - pd.remainingSize) + "/" + pd.totalSize);
-                    }
+                    perComplete = (int) ((((float) remaining) / ((float) pd.totalSize)) * 100f);
+                    log("progress: " + (pd.totalSize - pd.remainingSize) + "/" + pd.totalSize);
 
                     mProgress.setProgress(perComplete);
                 }
@@ -160,9 +155,10 @@ public class NearbyActivity extends BluetoothFragmentActivity {
         }
     };
 
-    private void addMedia (final File fileMedia, final String mimeType)
+    private void addMedia (final File fileMedia, final String mediaName, final String mimeType)
     {
         Media media = new Media(NearbyActivity.this, fileMedia.getAbsolutePath(), mimeType);
+        media.setTitle(mediaName);
         media.save();
 
         Snackbar snackbar = Snackbar
@@ -321,6 +317,13 @@ public class NearbyActivity extends BluetoothFragmentActivity {
 
     private void startServer () {
 
+        if (!mBluetoothManager.getAdapter().isEnabled())
+        {
+            Toast.makeText(this,"You must enable Bluetooth for this sharing to work",Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         long currentMediaId = getIntent().getLongExtra(Globals.EXTRA_CURRENT_MEDIA_ID, -1);
 
         if (currentMediaId >= 0)
@@ -357,15 +360,6 @@ public class NearbyActivity extends BluetoothFragmentActivity {
             noPairedDevices(); //no paired device? Prompt user to add!
 
 
-        /**
-        serverThread.setServerListener(new ServerThread.ServerListener() {
-            @Override
-            public void onDeviceConnected(BluetoothDevice device) {
-
-
-
-            }
-        });*/
 
     }
 
@@ -377,7 +371,11 @@ public class NearbyActivity extends BluetoothFragmentActivity {
 
             InputStream is = new FileInputStream(fileMedia);
             byte[] digest = Utils.calculateMD5(fileMedia);
-            serverThread.setShareMedia(fileMedia,(int)fileMedia.length(),digest);
+            String title = mMedia.getTitle();
+            if (TextUtils.isEmpty(title))
+                title = fileMedia.getName();
+
+            serverThread.setShareMedia(fileMedia,(int)fileMedia.length(),digest,title,mMedia.getMimeType());
 
         }
         catch (Exception e)
