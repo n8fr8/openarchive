@@ -2,18 +2,10 @@ package net.opendasharchive.openarchive;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.Toast;
 
 import net.opendasharchive.openarchive.EulaActivity.OnEulaAgreedTo;
@@ -66,7 +58,7 @@ public class FirstStartActivity extends Activity implements OnEulaAgreedTo {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_first_start);
+        setContentView(R.layout.activity_sign_in);
 
         mAccount = new Account(this, null);
     }

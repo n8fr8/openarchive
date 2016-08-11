@@ -53,6 +53,8 @@ dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile project(":stampery")
     compile project(":Android-Multi-Bluetooth-Library:Bluetooth:Bluetooth_lib")
+    compile 'com.github.paolorotolo:appintro:4.0.0'
+
 }
 
 apt {

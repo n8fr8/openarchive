@@ -59,10 +59,10 @@
     <string name="tos_dialog_positive_button">Got it</string>
 
     <!-- FirstStartActivity -->
-    <string name="sign_in_btn">Sign In</string>
+    <string name="sign_in_btn">Sign In to Archive.org</string>
 
     <!--<string name="sign_up_btn">Don\'t have a virtual library card?\n<a href="https://archive.org/account/login.createaccount.php">Register for free!</a></string>-->
-    <string name="sign_up_btn">Don\'t have a virtual library card for Archive.org?\n<a href="https://archive.org/account/login.createaccount.php">Register for free!</a></string>
+    <string name="sign_up_btn">Don\'t have an account?\n<a href="https://archive.org/account/login.createaccount.php">Register for free!</a></string>
     <string name="tos_btn">I agree to the terms of service.</string>
 
     <!-- MainFragment -->
@@ -129,5 +129,15 @@
     <string name="orbot_detected">Orbot detected; using Tor network to connect more securely...</string>
 
     <string name="media_hint">Click the (+) button to import or create media to add to your archive</string>
+
+    <string name="intro1_title">Welcome to *Your* OpenArchive!</string>
+    <string name="intro1_desc">OpenArchive is a free, open-source app dedicated to preserving your photos, video and audio</string>
+
+    <string name="intro2_title">We &lt;3 the Internet Archive</string>
+    <string name="intro2_desc">Easily publish to Archive.org, directly or more securely through Tor</string>
+
+    <string name="intro3_title">Share Nearby With Friends</string>
+    <string name="intro3_desc">Use Bluetooth to share any media file instantly with a group of friends</string>
+
 
 </resources>

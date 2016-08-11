@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -92,7 +92,10 @@
      style="fill:none"
      inkscape:connector-curvature="0"
      d="m 29.60802,57.916799 h 19.2 v 19.2 h -19.2 z"
-     id="path4" />
+     id="path4"
+     inkscape:export-filename="/home/n8fr8/dev/repos/openarchive/art/openarchive.png"
+     inkscape:export-xdpi="602.3222"
+     inkscape:export-ydpi="602.3222" />
   <path
      style="fill:#ffffff;fill-opacity:1"
      d="m 44.555251,70.925614 0,-4.419417 -1.163853,0 -1.163853,0 0.059,-2.132851 0.059,-2.13285 3.270369,-3.161791 c 1.798702,-1.738985 3.339968,-3.165687 3.425035,-3.17045 0.08507,-0.0048 1.331858,1.164696 2.770647,2.598797 l 2.615981,2.607456 0.118818,2.695844 0.118819,2.695845 -0.635563,0 -0.635563,0 0,4.419417 0,4.419418 -4.419417,0 -4.419418,0 0,-4.419418 z"

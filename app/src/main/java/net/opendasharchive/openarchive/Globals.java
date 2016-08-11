@@ -25,4 +25,7 @@ public class Globals {
     public static final String PREF_LICENSE_URL         = "archive_pref_share_license_url";
 
     public final static String SITE_ARCHIVE             = "archive"; //Text, Audio, Photo, Video
+    public static final String PREF_FIRST_TIME_KEY        = "archive_first_key";
+
 }
+

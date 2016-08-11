@@ -102,6 +102,15 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        SharedPreferences sharedPref = this.getSharedPreferences(Globals.PREF_FILE_KEY, Context.MODE_PRIVATE);
+        if (sharedPref.getBoolean(Globals.PREF_FIRST_TIME_KEY,true))
+        {
+            Intent intent = new Intent(this, OAAppIntro.class);
+            startActivity(intent);
+
+            sharedPref.edit().putBoolean(Globals.PREF_FIRST_TIME_KEY,false).commit();
+        }
+
 
     }
 
@@ -141,13 +150,16 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        /**
         if (id == R.id.action_logout)
         {
-            handleLogout();
+           // handleLogout();
             return true;
         }
-        else if (id == R.id.action_about)
+        else **/
+         if (id == R.id.action_about)
         {
+           // Intent intent = new Intent(this, OAAppIntro.class);
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
             return true;
@@ -249,6 +261,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    /**
     private void handleLogout() {
 
 
@@ -275,7 +288,7 @@ public class MainActivity extends ActionBarActivity {
                 })
                 .setIcon(R.drawable.ic_dialog_alert_holo_light)
                 .show();
-    }
+    }*/
 
     private void startNearby ()
     {

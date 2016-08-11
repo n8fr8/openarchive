@@ -26,4 +26,11 @@
     <color name="pink_pressed">#ec407a</color>
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
+
+    <color name="oablue">#36a9c6</color>
+
+    <color name="intro1bg">#34c5ff</color>
+    <color name="intro2bg">#34c5ff</color>
+    <color name="intro3bg">#34c5ff</color>
+
 </resources>

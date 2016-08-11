@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="net.opendasharchive.openarchive"
     android:installLocation="auto">
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="10"
+        android:targetSdkVersion="21"
+        tools:overrideLibrary="com.github.paolorotolo.appintro"
+        />
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true" />
+        android:required="false" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
 
 
     <!--
@@ -131,6 +133,8 @@
         <activity android:name=".nearby.NearbyActivity"
             android:screenOrientation="portrait"
             ></activity>
+        <activity android:name=".OAAppIntro"
+            android:label="App Intro" />
     </application>
 
 </manifest>
