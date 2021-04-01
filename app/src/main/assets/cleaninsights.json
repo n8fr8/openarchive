@@ -1,22 +1,14 @@
 {
   "server": "https://metrics.cleaninsights.org/cleaninsights.php",
-  "siteId": 1,
+  "siteId": 15,
   "timeout": 5,
   "debug": true,
   "campaigns": {
     "april": {
       "start": "2021-01-01T00:00:00Z",
-      "end": "2021-04-30T23:59:59Z",
-      "aggregationPeriodLength": 1,
-      "numberOfPeriods": 15,
-      "onlyRecordOnce": false,
-      "eventAggregationRule": "avg"
-    },
-    "april-projects": {
-      "start": "2021-01-01T00:00:00Z",
-      "end": "2021-04-30T23:59:59Z",
-      "aggregationPeriodLength": 30,
-      "numberOfPeriods": 1,
+      "end": "2021-12-31T23:59:59Z",
+      "aggregationPeriodLength": 7,
+      "numberOfPeriods": 52,
       "onlyRecordOnce": false,
       "eventAggregationRule": "avg"
     }
